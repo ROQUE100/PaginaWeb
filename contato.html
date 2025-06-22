@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contato - Blog do Cláudio</title>
+    <meta
+      name="description"
+      content="Entre em contato com a equipe do Blog de Variedades. Envie suas dúvidas, sugestões ou propostas de parceria."
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Cabeçalho Padrão -->
+    <header>
+      <div class="container">
+        <h1 class="logo">Blog do Cláudio</h1>
+        <nav class="menu-navegacao">
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="artigos.html">Artigos</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Contato</a></li>
+            <li><a href="relatorio.html">Relatório</a></li>
+          </ul>
+        </nav>
+        <button
+          class="menu-hamburguer"
+          id="menu-hamburguer"
+          aria-label="Abrir menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="pagina-interna">
+        <div class="container">
+          <h2>Fale Conosco</h2>
+          <p>
+            Tem alguma dúvida, sugestão ou proposta? Preencha o formulário
+            abaixo e nossa equipe retornará o mais breve possível.
+          </p>
+          <p>
+            Estamos sempre abertos ao diálogo e prontos para ouvir você. Sua
+            opinião é fundamental para que possamos aprimorar nosso conteúdo,
+            oferecer uma experiência cada vez melhor e construir um espaço
+            colaborativo, onde todos têm voz. Não hesite em nos enviar sua
+            mensagem!
+          </p>
+
+          <!-- Formulário com `novalidate` para permitir a validação via JavaScript -->
+          <form id="form-contato" class="form-contato" novalidate>
+            <div class="form-grupo">
+              <label for="nome">Nome Completo</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                placeholder="Seu nome completo"
+                required
+                aria-describedby="nome-erro"
+              />
+              <small id="nome-erro" class="mensagem-erro"></small>
+            </div>
+            <div class="form-grupo">
+              <label for="email">E-mail</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="seuemail@exemplo.com"
+                required
+                aria-describedby="email-erro"
+              />
+              <small id="email-erro" class="mensagem-erro"></small>
+            </div>
+            <div class="form-grupo">
+              <label for="mensagem">Sua Mensagem</label>
+              <textarea
+                id="mensagem"
+                name="mensagem"
+                rows="16"
+                placeholder="Digite sua mensagem aqui..."
+                required
+                aria-describedby="mensagem-erro"
+              ></textarea>
+              <small id="mensagem-erro" class="mensagem-erro"></small>
+            </div>
+            <button type="submit">Enviar Mensagem</button>
+            <!-- Elemento para feedback de sucesso do envio -->
+            <p id="feedback-sucesso" class="feedback-sucesso"></p>
+          </form>
+        </div>
+      </section>
+
+      <!-- Seção de chamada para a página de relatório -->
+      <section class="secao-chamada-relatorio">
+        <div class="container">
+          <h3>Gostou do que viu?</h3>
+          <p>Explore a análise técnica completa e interativa deste projeto.</p>
+          <a href="relatorio.html" class="btn-ver-relatorio"
+            >Ver Relatório Interativo</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 Blog do Cláudio. Todos os direitos reservados.</p>
+        <p>Contate o autor</p>
+        <!-- Botão de contato -->
+        <a
+          href="https://www.linkedin.com/in/roquenobre/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-social linkedin"
+          >LinkedIn</a
+        >
+        <a
+          href="https://www.facebook.com/roquenobre/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-social facebook"
+          >Facebook</a
+        >
+        <br />
+        <small
+          >Este site é um modelo de demonstração e todo o conteúdo é fictício
+        </small>
+      </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
