@@ -59,7 +59,7 @@ A estrutura do site foi planejada para ser simples e intuitiva, conectando quatr
 ## ▶️ Veja funcionando
 
 👉 Acesse o projeto em:  
-[https://roque100.github.io/Blog-Responsivo](https://roque100.github.io/PaginaWeb/)
+[https://roque100.github.io/PaginaWeb/]
 
 ## ⚖️ Licença
 
