@@ -251,97 +251,101 @@ document.addEventListener("DOMContentLoaded", () => {
   const paginas = ["index.html", "artigos.html", "sobre.html", "contato.html"];
   const nomeArquivoAtual =
     window.location.pathname.split("/").pop() || "index.html";
-  let paginasCarregadas = [nomeArquivoAtual];
-  let carregando = false;
 
-  const carregarPagina = async (url, direcao) => {
-    if (carregando || paginasCarregadas.includes(url)) return;
-    carregando = true;
+  // Apenas inicializa a rolagem infinita se a página atual estiver na sequência principal.
+  // Isso evita que a rolagem seja ativada em páginas como 'relatorio.html'.
+  if (paginas.includes(nomeArquivoAtual)) {
+    let paginasCarregadas = [nomeArquivoAtual];
+    let carregando = false;
 
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error(`Erro ao carregar ${url}`);
-      const text = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(text, "text/html");
-      const novoMain = doc.querySelector("main");
+    const carregarPagina = async (url, direcao) => {
+      if (carregando || paginasCarregadas.includes(url)) return;
+      carregando = true;
 
-      if (novoMain && mainContainer) {
-        // Cria um container <section> para encapsular todo o conteúdo da nova página.
-        // Isso garante que todos os elementos (como o sub-header do relatório)
-        // sejam mantidos juntos e que os scripts possam encontrá-los.
-        const pageWrapper = document.createElement("section");
-        pageWrapper.dataset.pageUrl = url; // Útil para depuração
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Erro ao carregar ${url}`);
+        const text = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, "text/html");
+        const novoMain = doc.querySelector("main");
 
-        // Verifica se existe um sub-header especial (usado na página de relatório) e o adiciona.
-        const novoSubHeader = doc.querySelector("#sub-header-relatorio");
-        if (novoSubHeader) {
-          pageWrapper.appendChild(novoSubHeader);
-        }
+        if (novoMain && mainContainer) {
+          // Cria um container <section> para encapsular todo o conteúdo da nova página.
+          // Isso garante que todos os elementos (como o sub-header do relatório)
+          // sejam mantidos juntos e que os scripts possam encontrá-los.
+          const pageWrapper = document.createElement("section");
+          pageWrapper.dataset.pageUrl = url; // Útil para depuração
 
-        // Adiciona o conteúdo principal da página carregada dentro do wrapper.
-        // Não podemos adicionar o <main> diretamente para evitar HTML inválido (<main> dentro de <main>).
-        // Em vez disso, criamos um div que imita o <main> original.
-        const contentDiv = document.createElement("div");
-        contentDiv.className = novoMain.className;
-        while (novoMain.firstChild) {
-          contentDiv.appendChild(novoMain.firstChild);
-        }
-        pageWrapper.appendChild(contentDiv);
-
-        const separador = document.createElement("hr");
-        separador.className = "separador-pagina-carregada";
-        const primeiroElementoAntigo = mainContainer.firstChild;
-
-        if (direcao === "baixo") {
-          mainContainer.appendChild(separador);
-          mainContainer.appendChild(pageWrapper);
-        } else {
-          mainContainer.prepend(pageWrapper);
-          mainContainer.prepend(separador);
-          if (primeiroElementoAntigo) {
-            primeiroElementoAntigo.scrollIntoView();
+          // Verifica se existe um sub-header especial (usado na página de relatório) e o adiciona.
+          const novoSubHeader = doc.querySelector("#sub-header-relatorio");
+          if (novoSubHeader) {
+            pageWrapper.appendChild(novoSubHeader);
           }
+
+          // Adiciona o conteúdo principal da página carregada dentro do wrapper.
+          const contentDiv = document.createElement("div");
+          contentDiv.className = novoMain.className;
+          while (novoMain.firstChild) {
+            contentDiv.appendChild(novoMain.firstChild);
+          }
+          pageWrapper.appendChild(contentDiv);
+
+          const separador = document.createElement("hr");
+          separador.className = "separador-pagina-carregada";
+          const primeiroElementoAntigo = mainContainer.firstChild;
+
+          if (direcao === "baixo") {
+            mainContainer.appendChild(separador);
+            mainContainer.appendChild(pageWrapper);
+          } else {
+            mainContainer.prepend(pageWrapper);
+            mainContainer.prepend(separador);
+            if (primeiroElementoAntigo) {
+              primeiroElementoAntigo.scrollIntoView();
+            }
+          }
+
+          if (direcao === "baixo") {
+            paginasCarregadas.push(url);
+          } else {
+            paginasCarregadas.unshift(url);
+          }
+
+          // Atualiza o título da página e a URL na barra de endereço
+          const novoTitulo = doc.querySelector("title").textContent;
+          document.title = novoTitulo;
+          history.pushState({ path: url }, novoTitulo, url);
+
+          inicializarScriptsDaPagina(pageWrapper);
         }
-
-        if (direcao === "baixo") {
-          paginasCarregadas.push(url);
-        } else {
-          paginasCarregadas.unshift(url);
-        }
-
-        // Atualiza o título da página e a URL na barra de endereço
-        const novoTitulo = doc.querySelector("title").textContent;
-        document.title = novoTitulo;
-        history.pushState({ path: url }, novoTitulo, url);
-
-        inicializarScriptsDaPagina(pageWrapper);
+      } catch (error) {
+        console.error(`Falha ao carregar a página (${direcao}):`, error);
+      } finally {
+        carregando = false;
       }
-    } catch (error) {
-      console.error(`Falha ao carregar a página (${direcao}):`, error);
-    } finally {
-      carregando = false;
-    }
-  };
+    };
 
-  window.addEventListener("scroll", () => {
-    if (carregando) return;
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    const indiceUltimaPagina = paginas.indexOf(
-      paginasCarregadas[paginasCarregadas.length - 1]
-    );
-    const indicePrimeiraPagina = paginas.indexOf(paginasCarregadas[0]);
+    window.addEventListener("scroll", () => {
+      if (carregando) return;
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
+      const indiceUltimaPagina = paginas.indexOf(
+        paginasCarregadas[paginasCarregadas.length - 1]
+      );
+      const indicePrimeiraPagina = paginas.indexOf(paginasCarregadas[0]);
 
-    if (
-      clientHeight + scrollTop >= scrollHeight - 500 &&
-      indiceUltimaPagina < paginas.length - 1
-    ) {
-      carregarPagina(paginas[indiceUltimaPagina + 1], "baixo");
-    }
-    if (scrollTop <= 150 && indicePrimeiraPagina > 0) {
-      carregarPagina(paginas[indicePrimeiraPagina - 1], "cima");
-    }
-  });
+      if (
+        clientHeight + scrollTop >= scrollHeight - 500 &&
+        indiceUltimaPagina < paginas.length - 1
+      ) {
+        carregarPagina(paginas[indiceUltimaPagina + 1], "baixo");
+      }
+      if (scrollTop <= 150 && indicePrimeiraPagina > 0) {
+        carregarPagina(paginas[indicePrimeiraPagina - 1], "cima");
+      }
+    });
+  }
 
   // --- INICIALIZAÇÃO INICIAL DA PÁGINA CARREGADA ---
   inicializarScriptsDaPagina(document.body);
