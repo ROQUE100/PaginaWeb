@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Básico: Título descritivo e meta tags -->
+    <title>Blog do Cláudio - Seu portal de notícias e entretenimento</title>
+    <meta
+      name="description"
+      content="Blog de Variedades com artigos sobre tecnologia, viagens, gastronomia e muito mais. Fique por dentro das últimas novidades."
+    />
+    <meta
+      name="keywords"
+      content="blog, variedades, tecnologia, viagens, gastronomia, notícias, lifestyle"
+    />
+
+    <!-- Link para a folha de estilos CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Cabeçalho do site: contém logo e menu de navegação -->
+    <header>
+      <div class="container">
+        <h1 class="logo">Blog do Cláudio</h1>
+        <nav class="menu-navegacao">
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="artigos.html">Artigos</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Contato</a></li>
+            <li><a href="relatorio.html">Relatório</a></li>
+          </ul>
+        </nav>
+        <!-- Botão do menu hambúrguer para dispositivos móveis -->
+        <button
+          class="menu-hamburguer"
+          id="menu-hamburguer"
+          aria-label="Abrir menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Conteúdo principal da página inicial -->
+    <main>
+      <!-- Seção "Hero": uma chamada visual principal com imagem de fundo -->
+      <section class="hero">
+        <div class="container">
+          <h2>Bem-vindo ao nosso Blog!</h2>
+          <p>
+            Explorando o mundo da tecnologia, viagens, gastronomia, esportes e
+            muito mais.
+          </p>
+        </div>
+      </section>
+
+      <!-- Seção de artigos em destaque -->
+      <section class="destaques">
+        <div class="container">
+          <h3>Artigos em Destaque</h3>
+          <div class="grid-artigos">
+            <!-- Artigo 1 -->
+            <article>
+              <img
+                src="./img/IA_imagem.webp"
+                alt="Ilustração sobre novas tecnologias."
+              />
+              <div class="conteudo-artigo">
+                <h4>As novas fronteiras da Inteligência Artificial</h4>
+                <p>
+                  Descubra como a IA está moldando o futuro e transformando
+                  indústrias de maneiras que nunca imaginamos<span
+                    class="pontos-suspensao"
+                    >...</span
+                  ><span class="texto-expandido hidden"
+                    >, impactando setores como saúde, finanças e transporte de
+                    formas revolucionárias. A automação inteligente e a análise
+                    preditiva são apenas o começo.</span
+                  >
+                </p>
+                <button class="btn-leia-mais">Leia mais</button>
+              </div>
+            </article>
+            <!-- Artigo 2 -->
+            <article>
+              <img
+                src="./img/viagem.webp"
+                alt="Paisagem de um destino de viagem paradisíaco."
+              />
+              <div class="conteudo-artigo">
+                <h4>5 Destinos incríveis para suas próximas férias</h4>
+                <p>
+                  De praias paradisíacas a montanhas deslumbrantes, planeje sua
+                  próxima aventura com nosso guia completo<span
+                    class="pontos-suspensao"
+                    >...</span
+                  ><span class="texto-expandido hidden"
+                    >, que inclui dicas de roteiros, melhores épocas para
+                    visitar e sugestões de hospedagem para todos os
+                    bolsos.</span
+                  >
+                </p>
+                <button class="btn-leia-mais">Leia mais</button>
+              </div>
+            </article>
+            <!-- Artigo 3 -->
+            <article>
+              <img
+                src="./img/gastronomia.webp"
+                alt="Pratos com diferentes tipos de comidas."
+              />
+              <div class="conteudo-artigo">
+                <h4>Receitas fáceis para um jantar especial</h4>
+                <p>
+                  Surpreenda seus convidados com pratos deliciosos e fáceis de
+                  preparar, sem precisar ser um chef profissional<span
+                    class="pontos-suspensao"
+                    >...</span
+                  ><span class="texto-expandido hidden"
+                    >. Veja nosso passo a passo para uma entrada, prato
+                    principal e sobremesa que vão impressionar a todos.</span
+                  >
+                </p>
+                <button class="btn-leia-mais">Leia mais</button>
+              </div>
+            </article>
+            <!-- Artigo 4 -->
+            <article>
+              <img
+                src="./img/futebol.webp"
+                alt="Times participantes mundial de clubes 2025."
+              />
+              <div class="conteudo-artigo">
+                <h4>
+                  Times sulamericanos fazem bonito no mundial de clubes da Fifa
+                </h4>
+                <p>
+                  Com atuações de gala, os representantes da América do Sul
+                  mostram a força do nosso futebol no cenário mundial<span
+                    class="pontos-suspensao"
+                    >...</span
+                  ><span class="texto-expandido hidden"
+                    >, avançando para as fases finais e encantando torcedores
+                    com técnica e raça. A final promete ser histórica.</span
+                  >
+                </p>
+                <button class="btn-leia-mais">Leia mais</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Rodapé do site -->
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 Blog do Cláudio. Todos os direitos reservados.</p>
+        <p>Contate o autor</p>
+        <!-- Botão de contato -->
+        <a
+          href="https://www.linkedin.com/in/roquenobre/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-social linkedin"
+          >LinkedIn</a
+        >
+        <a
+          href="https://www.facebook.com/roquenobre/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-social facebook"
+          >Facebook</a
+        >
+        <br />
+        <small
+          >Este site é um modelo de demonstração e todo o conteúdo é fictício
+        </small>
+      </div>
+    </footer>
+
+    <!-- Link para o script JavaScript -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
