@@ -20,6 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function inicializarLeiaMais(container) {
+    // Utiliza delegação de eventos no container principal para que a funcionalidade
+    // persista para conteúdo carregado dinamicamente, sem adicionar múltiplos listeners.
+    if (!container) return;
     container.addEventListener("click", (event) => {
       const button = event.target;
       const isReadMoreButton =
@@ -43,11 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       if (dots && moreText) {
-        const isCurrentlyHidden = moreText.classList.toggle("hidden");
-        // O toggle retorna `true` se a classe foi adicionada (agora está visível),
-        // e `false` se foi removida (agora está escondido).
+        // toggle retorna `true` se a classe foi ADICIONADA (texto agora escondido)
+        // e `false` se foi REMOVIDA (texto agora visível).
+        const foiEscondido = moreText.classList.toggle("hidden");
         dots.classList.toggle("hidden");
-        button.textContent = isCurrentlyHidden ? "Leia menos" : "Leia mais";
+        button.textContent = foiEscondido ? "Leia mais" : "Leia menos";
       }
     });
   }
@@ -240,7 +243,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- FUNÇÃO PRINCIPAL DE INICIALIZAÇÃO DE PÁGINA ---
   function inicializarScriptsDaPagina(container) {
     inicializarMenuHamburguer(container.querySelector("header") || document);
-    inicializarLeiaMais(container);
     configurarValidacaoFormulario(container.querySelector("#form-contato"));
     if (container.querySelector(".container-relatorio")) {
       inicializarScriptsRelatorio(container);
@@ -347,6 +349,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- INICIALIZAÇÃO INICIAL DA PÁGINA CARREGADA ---
+  // --- INICIALIZAÇÃO ---
+  // Configura o listener de "Leia mais" uma única vez no container principal.
+  // Isso garante que ele funcione para todo o conteúdo, inclusive o carregado dinamicamente.
+  inicializarLeiaMais(mainContainer);
+  // Inicializa os outros scripts para o conteúdo que já está na página.
   inicializarScriptsDaPagina(document.body);
 });
